@@ -30,8 +30,6 @@ const App = () => {
         <ProductCard
           name="Iphone 12 Pro max"
           category="Smartphones"
-          brand="Apple"
-          price={999}
         />
       </div>
     </>
