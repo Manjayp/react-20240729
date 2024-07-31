@@ -1,19 +1,33 @@
+import { NavLink } from "react-router-dom";
 import navMenu from "../constants/navMenu";
 
 function Header() {
+  const isAuth = false;
+
+  const linkClass = ({ isActive }) =>
+    isActive
+      ? "bg-slate-700 text-white py-1 px-5 rounded"
+      : "text-slate-700 py-1 px-5";
+
   return (
     <header className="shadow">
       <div className="container mx-auto">
         <div className="flex justify-between p-5">
           <div>LOGO</div>
           <nav>
-            {navMenu.map((menu) => {
-              return (
-                <a key={menu.label} href={menu.route} className="px-5">
-                  {menu.label}
-                </a>
-              );
-            })}
+            {navMenu
+              .filter((menu) => menu.auth === isAuth)
+              .map((menu) => {
+                return (
+                  <NavLink
+                    key={menu.label}
+                    to={menu.route}
+                    className={linkClass}
+                  >
+                    {menu.label}
+                  </NavLink>
+                );
+              })}
           </nav>
         </div>
       </div>

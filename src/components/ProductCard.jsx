@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+import headphone from "../assets/headphone.jpg";
+
 const ProductCard = ({
   name,
   category,
@@ -6,6 +9,7 @@ const ProductCard = ({
 }) => {
   return (
     <div className="bg-slate-200 m-5 p-5 rounded-xl text-center">
+      <img src={headphone} alt="headphone" className="h-24 w-auto mx-auto" />
       <h2 className="text-2xl font-semibold mb-3">{name}</h2>
       <div>{category}</div>
       <div>{brand}</div>
