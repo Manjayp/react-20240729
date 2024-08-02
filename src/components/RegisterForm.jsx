@@ -1,16 +1,36 @@
 import { useForm } from "react-hook-form";
 import { EMAIL_REGEX } from "../constants/regex";
 import { Link } from "react-router-dom";
+import { signUp } from "../api/auth";
+import { toast, ToastContainer } from "react-toastify";
+import Spinner from "./Spinner";
+import { useState } from "react";
 
 const RegisterForm = () => {
+  const [loading, setLoading] = useState(false);
+
   const { register, handleSubmit, formState, watch } = useForm({ mode: "all" });
 
   const password = watch("password");
 
   const { errors } = formState;
 
-  function submitForm(data) {
-    console.log(data);
+  async function submitForm(data) {
+    setLoading(true);
+
+    try {
+      await signUp(data);
+
+      toast.success("User registered successfully. Please login to continue.", {
+        autoClose: 2500,
+      });
+    } catch (error) {
+      toast.error(error.response.data, {
+        autoClose: 2500,
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -89,11 +109,13 @@ const RegisterForm = () => {
       </div>
 
       <div className="mt-5 text-center">
-        <input
+        <button
           type="submit"
-          value={"Register"}
-          className="bg-rose-600 text-white rounded py-2 hover:bg-rose-700 cursor-pointer w-full"
-        />
+          className="bg-blue-500 text-white rounded py-2 hover:bg-blue-600 cursor-pointer w-full flex justify-center items-center"
+        >
+          <span className="mr-2">Register</span>
+          {loading ? <Spinner /> : null}
+        </button>
       </div>
       <div className="text-center mt-5 text-sm">
         <span>Already have an account?</span>
@@ -101,6 +123,8 @@ const RegisterForm = () => {
           Login
         </Link>
       </div>
+
+      <ToastContainer />
     </form>
   );
 };

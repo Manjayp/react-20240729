@@ -2,7 +2,9 @@ import { NavLink } from "react-router-dom";
 import navMenu from "../constants/navMenu";
 
 function Header() {
-  const isAuth = false;
+  const authToken = localStorage.getItem("authToken");
+
+  const isAuth = authToken ? true : false;
 
   const linkClass = ({ isActive }) =>
     isActive

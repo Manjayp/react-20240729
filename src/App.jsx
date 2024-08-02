@@ -13,6 +13,7 @@ import ProductDetails from "./pages/products/Details";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * hello world -> sentence case
