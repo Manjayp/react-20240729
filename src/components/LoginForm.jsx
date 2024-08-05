@@ -1,38 +1,32 @@
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/auth/authActions";
+import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 import { EMAIL_REGEX } from "../constants/regex";
-import { Link, useNavigate } from "react-router-dom";
-import { login } from "../api/auth";
-import { toast, ToastContainer } from "react-toastify";
-import { useState } from "react";
 import Spinner from "./Spinner";
 
 const LoginForm = () => {
-  const [loading, setLoading] = useState(false);
-
   const { register, handleSubmit, formState } = useForm({ mode: "all" });
 
   const { errors } = formState;
 
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // Loading, success, failure
-  async function submitForm(data) {
-    setLoading(true);
+  const { loading, error } = useSelector((state) => state.auth);
 
-    try {
-      const response = await login(data);
+  function submitForm(data) {
+    dispatch(loginUser(data));
+  }
 
-      localStorage.setItem("authToken", response.data.token);
-
-      navigate("/");
-    } catch (error) {
-      toast.error(error.response.data, {
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
         autoClose: 2500,
       });
-    } finally {
-      setLoading(false);
     }
-  }
+  }, [error]);
 
   return (
     <form onSubmit={handleSubmit(submitForm)} noValidate className="w-4/6">

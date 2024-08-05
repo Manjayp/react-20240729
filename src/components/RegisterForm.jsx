@@ -1,37 +1,36 @@
-import { useForm } from "react-hook-form";
+import Spinner from "./Spinner";
 import { EMAIL_REGEX } from "../constants/regex";
 import { Link } from "react-router-dom";
-import { signUp } from "../api/auth";
+import { registerUser } from "../redux/auth/authActions";
 import { toast, ToastContainer } from "react-toastify";
-import Spinner from "./Spinner";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 const RegisterForm = () => {
-  const [loading, setLoading] = useState(false);
-
   const { register, handleSubmit, formState, watch } = useForm({ mode: "all" });
 
   const password = watch("password");
 
   const { errors } = formState;
 
-  async function submitForm(data) {
-    setLoading(true);
+  const dispatch = useDispatch();
 
-    try {
-      await signUp(data);
+  const { loading, error, user } = useSelector((state) => state.auth);
 
-      toast.success("User registered successfully. Please login to continue.", {
-        autoClose: 2500,
-      });
-    } catch (error) {
-      toast.error(error.response.data, {
-        autoClose: 2500,
-      });
-    } finally {
-      setLoading(false);
-    }
+  function submitForm(data) {
+    dispatch(registerUser(data));
   }
+
+  useEffect(() => {
+    if (user) {
+      toast.success("User registered successfully", { autoClose: 2500 });
+    }
+
+    if (error) {
+      toast.error(error, { autoClose: 2500 });
+    }
+  }, [error, user]);
 
   return (
     <form onSubmit={handleSubmit(submitForm)} noValidate className="w-4/6">

@@ -13,7 +13,10 @@ import ProductDetails from "./pages/products/Details";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import AuthLayout from "./layouts/AuthLayout";
+import UnAuthLayout from "./layouts/UnAuthLayout";
+import { useSelector } from "react-redux";
 
 /**
  * hello world -> sentence case
@@ -23,21 +26,27 @@ import 'react-toastify/dist/ReactToastify.css';
  */
 
 const App = () => {
+  const { user } = useSelector((state) => state.auth);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="products">
-          <Route index element={<ProductList />} />
-          <Route path=":id" element={<ProductDetails />} />
+        <Route element={<AuthLayout user={user} />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="products">
+            <Route index element={<ProductList />} />
+            <Route path=":id" element={<ProductDetails />} />
+          </Route>
         </Route>
-        <Route path="*" element={<NotFound />} />
-        <Route path="auth">
+
+        <Route path="auth" element={<UnAuthLayout user={user} />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Route>
     )
   );

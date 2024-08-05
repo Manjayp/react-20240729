@@ -1,10 +1,11 @@
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import navMenu from "../constants/navMenu";
 
 function Header() {
-  const authToken = localStorage.getItem("authToken");
+  const { user } = useSelector((state) => state.auth);
 
-  const isAuth = authToken ? true : false;
+  const isAuth = user ? true : false;
 
   const linkClass = ({ isActive }) =>
     isActive
