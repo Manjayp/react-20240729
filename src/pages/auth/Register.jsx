@@ -2,9 +2,9 @@ import RegisterForm from "../../components/RegisterForm";
 
 const Register = () => {
   return (
-    <div className="container mx-auto pt-8">
-      <div className="w-3/5 h-[80vh] rounded-[3rem] shadow-md  mx-auto flex">
-        <div className="w-1/2 bg-gradient-to-r from-pink-500 to-rose-500 rounded-l-[3rem] flex flex-col items-center justify-center">
+    <div className="container mx-auto py-8">
+      <div className="w-3/5 lg:h-[80vh] rounded-[3rem] shadow-md mx-auto lg:flex">
+        <div className="lg:w-1/2 bg-gradient-to-r from-pink-500 to-rose-500 rounded-t-[3rem] lg:rounded-r-none lg:rounded-l-[3rem] flex flex-col py-8 items-center justify-center">
           <h1 className="text-7xl text-center font-semibold text-white">
             Register
           </h1>
@@ -12,7 +12,7 @@ const Register = () => {
             Do not have an account? Please register.
           </h4>
         </div>
-        <div className="w-1/2 flex items-center justify-center">
+        <div className="lg:w-1/2 flex py-8 items-center justify-center">
           <RegisterForm />
         </div>
       </div>
