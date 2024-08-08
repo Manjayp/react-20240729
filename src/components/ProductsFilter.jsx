@@ -45,7 +45,7 @@ const ProductsFilter = () => {
         >
           <option value="">Select Category</option>
           {categories.map((category) => (
-            <option key={category} value={category}>
+            <option key={category} value={category} className="capitalize">
               {category}
             </option>
           ))}
