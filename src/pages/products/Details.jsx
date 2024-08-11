@@ -26,9 +26,9 @@ const ProductDetails = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex justify-evenly items-center py-10">
+      <div className="flex flex-col lg:flex-row justify-evenly items-center py-10">
         <img src={headphone} className="h-[80vh] w-auto" alt="" />
-        <div className="w-2/5">
+        <div className="lg:w-2/5 py-10">
           <span className="rounded-2xl bg-green-500 px-2">
             {products[0]?.category}
           </span>

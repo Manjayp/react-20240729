@@ -1,13 +1,18 @@
+/* eslint-disable react/prop-types */
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { addNewProduct } from "../redux/product/productActions";
-import Spinner from "./Spinner";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import { addNewProduct, updateProduct } from "../redux/product/productActions";
 import { GrAdd } from "react-icons/gr";
+import { BiPencil } from "react-icons/bi";
+import Spinner from "./Spinner";
 
-const AddProductForm = () => {
+const AddProductForm = ({ product }) => {
   const {
-    add: { loading, success },
+    add: { loading: addPending, success: addSuccess },
+    edit: { loading: editPending, success: editSuccess },
   } = useSelector((state) => state.product);
 
   const {
@@ -15,17 +20,37 @@ const AddProductForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: product ?? {},
+    disabled: editPending,
+  });
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   function submitForm(data) {
-    dispatch(addNewProduct(data));
+    if (product) {
+      dispatch(updateProduct(data));
+    } else {
+      dispatch(addNewProduct(data));
+    }
   }
 
   useEffect(() => {
-    if (success) reset();
-  }, [reset, success]);
+    if (addSuccess) reset();
+
+    if (editSuccess) {
+      reset();
+
+      toast.success("Product updated successfully.", {
+        autoClose: 1500,
+        onClose: () => {
+          navigate("/products");
+        },
+      });
+    }
+  }, [reset, addSuccess, editSuccess, navigate]);
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
@@ -90,12 +115,25 @@ const AddProductForm = () => {
       <div className="mt-5 text-center">
         <button
           type="submit"
-          className="bg-green-600 text-white rounded py-2 hover:bg-green-700 cursor-pointer w-full flex justify-center items-center"
+          className={`${
+            product
+              ? "bg-blue-500 hover:bg-blue-600"
+              : "bg-green-600 hover:bg-green-700"
+          } text-white rounded py-2 cursor-pointer w-full flex justify-center items-center`}
         >
-          <span className="mr-2">Add Product</span>
-          {loading ? <Spinner /> : <GrAdd />}
+          <span className="mr-2">
+            {product ? "Edit Product" : "Add Product"}
+          </span>
+          {addPending || editPending ? (
+            <Spinner />
+          ) : product ? (
+            <BiPencil />
+          ) : (
+            <GrAdd />
+          )}
         </button>
       </div>
+      <ToastContainer />
     </form>
   );
 };

@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addNewProduct,
+  deleteProductById,
   getProductById,
   getProductCategories,
   getProductList,
+  updateProduct,
 } from "./productActions";
 
 const productSlice = createSlice({
@@ -15,6 +17,14 @@ const productSlice = createSlice({
     error: null,
     query: null,
     add: {
+      loading: false,
+      success: false,
+    },
+    delete: {
+      loading: false,
+      success: false,
+    },
+    edit: {
       loading: false,
       success: false,
     },
@@ -36,6 +46,8 @@ const productSlice = createSlice({
         state.loading = true;
         state.error = null;
         state.add.success = false;
+        state.delete.success = false;
+        state.edit.success = false;
       })
       .addCase(getProductList.fulfilled, (state, action) => {
         state.loading = false;
@@ -79,6 +91,30 @@ const productSlice = createSlice({
       })
       .addCase(addNewProduct.rejected, (state, action) => {
         state.add.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteProductById.pending, (state) => {
+        state.delete.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteProductById.fulfilled, (state) => {
+        state.delete.loading = false;
+        state.delete.success = true;
+      })
+      .addCase(deleteProductById.rejected, (state, action) => {
+        state.delete.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateProduct.pending, (state) => {
+        state.edit.loading = true;
+        state.error = null;
+      })
+      .addCase(updateProduct.fulfilled, (state) => {
+        state.edit.loading = false;
+        state.edit.success = true;
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
+        state.edit.loading = false;
         state.error = action.payload;
       });
   },

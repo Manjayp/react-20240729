@@ -1,5 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addProduct, getById, getCategories, getList } from "../../api/product";
+import {
+  addProduct,
+  deleteProduct,
+  editProduct,
+  getById,
+  getCategories,
+  getList,
+} from "../../api/product";
 
 const getProductList = createAsyncThunk(
   "product/list",
@@ -53,4 +60,37 @@ const addNewProduct = createAsyncThunk(
   }
 );
 
-export { getProductList, getProductById, getProductCategories, addNewProduct };
+const deleteProductById = createAsyncThunk(
+  "product/delete",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await deleteProduct(id);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+const updateProduct = createAsyncThunk(
+  "product/edit",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await editProduct(data.id, data);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export {
+  getProductList,
+  getProductById,
+  getProductCategories,
+  addNewProduct,
+  deleteProductById,
+  updateProduct,
+};

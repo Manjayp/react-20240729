@@ -19,7 +19,8 @@ const ProductList = () => {
     products,
     query,
     error,
-    add: { success },
+    add: { success: addSuccess },
+    delete: { success: deleteSuccess },
   } = useSelector((state) => state.product);
 
   const dispatch = useDispatch();
@@ -27,17 +28,21 @@ const ProductList = () => {
   useEffect(() => {
     dispatch(getProductList(query));
     dispatch(getProductCategories());
-  }, [dispatch, query, success]);
+  }, [dispatch, query, addSuccess, deleteSuccess]);
 
   useEffect(() => {
-    if (success) {
+    if (addSuccess) {
       setOpenAddModal(false);
 
       toast.success("Product added successfully.");
     }
 
+    if (deleteSuccess) {
+      toast.success("Product deleted successfully.");
+    }
+
     if (error) toast.error(error);
-  }, [error, success]);
+  }, [error, addSuccess, deleteSuccess]);
 
   return (
     <div className="container mx-auto">

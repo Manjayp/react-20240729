@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthLayout from "./layouts/AuthLayout";
 import UnAuthLayout from "./layouts/UnAuthLayout";
 import { useSelector } from "react-redux";
+import EditProduct from "./pages/products/Edit";
 
 /**
  * hello world -> sentence case
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="products">
             <Route index element={<ProductList />} />
             <Route path=":id" element={<ProductDetails />} />
+            <Route path="edit/:id" element={<EditProduct />} />
           </Route>
         </Route>
 
