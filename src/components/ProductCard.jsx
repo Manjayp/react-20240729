@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import headphone from "../assets/headphone.jpg";
-import { BiPencil, BiTrash } from "react-icons/bi";
+import { BiCart, BiPencil, BiTrash } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProductById } from "../redux/product/productActions";
 import { useState } from "react";
 import Modal from "./Modal";
 import Spinner from "./Spinner";
+import { addProductToCart } from "../redux/cart/cartSlice";
 
 const ProductCard = ({
   id,
@@ -31,6 +32,18 @@ const ProductCard = ({
     dispatch(deleteProductById(id));
   }
 
+  function addToCart() {
+    dispatch(
+      addProductToCart({
+        id,
+        name,
+        category,
+        brand,
+        price,
+      })
+    );
+  }
+
   return (
     <div className="px-5 py-10 rounded-xl text-center shadow-md border">
       <img src={headphone} alt="headphone" className="h-24 w-auto mx-auto" />
@@ -45,6 +58,12 @@ const ProductCard = ({
           Shop Now
         </Link>
         <div className="flex">
+          <button
+            className="text-white bg-green-700 p-3 rounded ml-2"
+            onClick={addToCart}
+          >
+            <BiCart />
+          </button>
           <Link
             to={`edit/${id}`}
             className="text-white bg-blue-500 p-3 rounded ml-2"

@@ -5,6 +5,7 @@ import {
   getProductById,
   getProductCategories,
   getProductList,
+  getRelatedProducts,
   updateProduct,
 } from "./productActions";
 
@@ -12,10 +13,15 @@ const productSlice = createSlice({
   name: "product",
   initialState: {
     products: [],
+    product: {},
     categories: [],
     loading: false,
     error: null,
     query: null,
+    relatedProducts: {
+      loading: false,
+      items: [],
+    },
     add: {
       loading: false,
       success: false,
@@ -63,7 +69,7 @@ const productSlice = createSlice({
       })
       .addCase(getProductById.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = [action.payload];
+        state.product = action.payload;
       })
       .addCase(getProductById.rejected, (state, action) => {
         state.loading = false;
@@ -115,6 +121,18 @@ const productSlice = createSlice({
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.edit.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getRelatedProducts.pending, (state) => {
+        state.relatedProducts.loading = true;
+        state.error = null;
+      })
+      .addCase(getRelatedProducts.fulfilled, (state, action) => {
+        state.relatedProducts.loading = false;
+        state.relatedProducts.items = action.payload;
+      })
+      .addCase(getRelatedProducts.rejected, (state, action) => {
+        state.relatedProducts.loading = false;
         state.error = action.payload;
       });
   },

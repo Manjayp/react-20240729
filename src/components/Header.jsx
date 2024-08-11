@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/auth/authSlice";
 import { Link, NavLink } from "react-router-dom";
 import navMenu from "../constants/navMenu";
-import { BiLogoShopify, BiLogOut, BiMenu } from "react-icons/bi";
+import { BiCart, BiLogoShopify, BiLogOut, BiMenu } from "react-icons/bi";
+import CartDropdown from "./CartDropdown";
 
 function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -37,13 +39,30 @@ function Header() {
           </Link>
           <div className="flex items-center lg:order-2">
             {isAuth ? (
-              <button
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center"
-                onClick={logout}
-              >
-                <span>Logout</span>
-                <BiLogOut className="text-xl ml-2" />
-              </button>
+              <div className="flex ">
+                <div className="relative flex items-center">
+                  <button
+                    className="text-white mr-2 px-3 rounded"
+                    onClick={() => setShowCart(!showCart)}
+                  >
+                    <BiCart className="text-xl" />
+                  </button>
+                  <div
+                    className={`${
+                      showCart ? "block" : "hidden"
+                    } absolute top-16 right-0`}
+                  >
+                    <CartDropdown />
+                  </div>
+                </div>
+                <button
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center"
+                  onClick={logout}
+                >
+                  <span>Logout</span>
+                  <BiLogOut className="text-xl ml-2" />
+                </button>
+              </div>
             ) : (
               <>
                 <NavLink

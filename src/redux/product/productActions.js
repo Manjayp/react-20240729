@@ -21,6 +21,19 @@ const getProductList = createAsyncThunk(
   }
 );
 
+const getRelatedProducts = createAsyncThunk(
+  "product/related",
+  async (query, { rejectWithValue }) => {
+    try {
+      const response = await getList(query ?? {});
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+
 const getProductById = createAsyncThunk(
   "product/id",
   async (id, { rejectWithValue }) => {
@@ -93,4 +106,5 @@ export {
   addNewProduct,
   deleteProductById,
   updateProduct,
+  getRelatedProducts,
 };
