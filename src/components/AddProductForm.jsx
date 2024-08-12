@@ -8,6 +8,7 @@ import { addNewProduct, updateProduct } from "../redux/product/productActions";
 import { GrAdd } from "react-icons/gr";
 import { BiPencil } from "react-icons/bi";
 import Spinner from "./Spinner";
+import { PRODUCTS_ROUTE } from "../constants/routes";
 
 const AddProductForm = ({ product }) => {
   const {
@@ -46,7 +47,7 @@ const AddProductForm = ({ product }) => {
       toast.success("Product updated successfully.", {
         autoClose: 1500,
         onClose: () => {
-          navigate("/products");
+          navigate(`/${PRODUCTS_ROUTE}`);
         },
       });
     }

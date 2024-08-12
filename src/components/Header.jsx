@@ -5,6 +5,12 @@ import { Link, NavLink } from "react-router-dom";
 import navMenu from "../constants/navMenu";
 import { BiCart, BiLogoShopify, BiLogOut, BiMenu } from "react-icons/bi";
 import CartDropdown from "./CartDropdown";
+import {
+  AUTH_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  REGISTER_ROUTE,
+} from "../constants/routes";
 
 function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -31,7 +37,7 @@ function Header() {
     <header className="sticky top-0">
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 shadow">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link to="/" className="flex items-center">
+          <Link to={`/${HOME_ROUTE}`} className="flex items-center">
             <BiLogoShopify className="dark:text-white text-5xl mr-2" />
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
               Shopify
@@ -66,13 +72,13 @@ function Header() {
             ) : (
               <>
                 <NavLink
-                  to="/auth/login"
+                  to={`${AUTH_ROUTE}/${LOGIN_ROUTE}`}
                   className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
                 >
                   Log in
                 </NavLink>
                 <NavLink
-                  to="/auth/register"
+                  to={`${AUTH_ROUTE}/${REGISTER_ROUTE}`}
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 >
                   Sign Up

@@ -8,7 +8,7 @@ import Spinner from "../../components/Spinner";
 const EditProduct = () => {
   const params = useParams();
 
-  const { loading, products } = useSelector((state) => state.product);
+  const { loading, product } = useSelector((state) => state.product);
 
   const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ const EditProduct = () => {
               <Spinner height="h-20" width="w-20" />
             </div>
           ) : (
-            <AddProductForm product={products[0]} />
+            <AddProductForm product={product} />
           )}
         </div>
       </div>

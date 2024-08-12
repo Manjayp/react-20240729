@@ -8,6 +8,7 @@ import { useState } from "react";
 import Modal from "./Modal";
 import Spinner from "./Spinner";
 import { addProductToCart } from "../redux/cart/cartSlice";
+import { EDIT_ROUTE, PRODUCTS_ROUTE } from "../constants/routes";
 
 const ProductCard = ({
   id,
@@ -45,7 +46,7 @@ const ProductCard = ({
   }
 
   return (
-    <div className="px-5 py-10 rounded-xl text-center shadow-md border">
+    <div className="px-5 py-10 rounded-xl text-center shadow-md border bg-white">
       <img src={headphone} alt="headphone" className="h-24 w-auto mx-auto" />
       <div className="rounded-2xl bg-green-500 px-2 w-max mx-auto mt-5">
         {category}
@@ -65,7 +66,7 @@ const ProductCard = ({
             <BiCart />
           </button>
           <Link
-            to={`edit/${id}`}
+            to={`/${PRODUCTS_ROUTE}/${EDIT_ROUTE}/${id}`}
             className="text-white bg-blue-500 p-3 rounded ml-2"
           >
             <BiPencil />
