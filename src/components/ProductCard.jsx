@@ -19,6 +19,8 @@ const ProductCard = ({
 }) => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
 
+  const { user } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
 
   const {
@@ -58,26 +60,35 @@ const ProductCard = ({
         <Link to={`${id}`} className="text-white bg-black px-5 py-2 rounded">
           Shop Now
         </Link>
-        <div className="flex">
+        {user ? (
+          <div className="flex">
+            <button
+              className="text-white bg-green-700 p-3 rounded ml-2"
+              onClick={addToCart}
+            >
+              <BiCart />
+            </button>
+            <Link
+              to={`/${PRODUCTS_ROUTE}/${EDIT_ROUTE}/${id}`}
+              className="text-white bg-blue-500 p-3 rounded ml-2"
+            >
+              <BiPencil />
+            </Link>
+            <button
+              className="text-white bg-red-500 p-3 rounded ml-2"
+              onClick={deleteProduct}
+            >
+              <BiTrash />
+            </button>
+          </div>
+        ) : (
           <button
             className="text-white bg-green-700 p-3 rounded ml-2"
             onClick={addToCart}
           >
             <BiCart />
           </button>
-          <Link
-            to={`/${PRODUCTS_ROUTE}/${EDIT_ROUTE}/${id}`}
-            className="text-white bg-blue-500 p-3 rounded ml-2"
-          >
-            <BiPencil />
-          </Link>
-          <button
-            className="text-white bg-red-500 p-3 rounded ml-2"
-            onClick={deleteProduct}
-          >
-            <BiTrash />
-          </button>
-        </div>
+        )}
       </div>
       <Modal
         isOpen={showDeletePopup}

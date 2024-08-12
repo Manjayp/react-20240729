@@ -37,7 +37,7 @@ function Header() {
     <header className="sticky top-0">
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 shadow">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link to={`/${HOME_ROUTE}`} className="flex items-center">
+          <Link to={HOME_ROUTE} className="flex items-center">
             <BiLogoShopify className="dark:text-white text-5xl mr-2" />
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
               Shopify
