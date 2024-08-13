@@ -24,8 +24,8 @@ function Header() {
 
   const linkClass = ({ isActive }) =>
     isActive
-      ? "block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
-      : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700";
+      ? "block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0"
+      : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0";
 
   function logout() {
     dispatch(logoutUser());
@@ -35,11 +35,11 @@ function Header() {
 
   return (
     <header className="sticky top-0">
-      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 shadow">
+      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 shadow">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to={HOME_ROUTE} className="flex items-center">
-            <BiLogoShopify className="dark:text-white text-5xl mr-2" />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            <BiLogoShopify className="text-5xl mr-2" />
+            <span className="self-center text-xl font-semibold whitespace-nowrap">
               Shopify
             </span>
           </Link>
@@ -48,7 +48,7 @@ function Header() {
               <div className="flex ">
                 <div className="relative flex items-center">
                   <button
-                    className="text-white mr-2 px-3 rounded"
+                    className="mr-2 px-3 rounded"
                     onClick={() => setShowCart(!showCart)}
                   >
                     <BiCart className="text-xl" />
@@ -56,13 +56,13 @@ function Header() {
                   <div
                     className={`${
                       showCart ? "block" : "hidden"
-                    } absolute top-16 right-0`}
+                    } absolute top-16 -right-full`}
                   >
                     <CartDropdown />
                   </div>
                 </div>
                 <button
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2focus:outline-none flex items-center"
                   onClick={logout}
                 >
                   <span>Logout</span>
@@ -73,20 +73,20 @@ function Header() {
               <>
                 <NavLink
                   to={`${AUTH_ROUTE}/${LOGIN_ROUTE}`}
-                  className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+                  className="text-gray-800  hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                 >
                   Log in
                 </NavLink>
                 <NavLink
                   to={`${AUTH_ROUTE}/${REGISTER_ROUTE}`}
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none "
                 >
                   Sign Up
                 </NavLink>
               </>
             )}
             <button
-              className="inline-flex items-center p-2 ml-1 text-sm bg-slate-900 text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center p-2 ml-1 text-sm bg-slate-900 text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
               onClick={() => setShowMobileMenu(!showMobileMenu)}
             >
               <BiMenu className="text-2xl" />

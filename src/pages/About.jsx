@@ -1,53 +1,32 @@
-import { useDispatch, useSelector } from "react-redux";
-import {
-  decreaseCounter,
-  increaseCounter,
-  resetCounter,
-} from "../redux/counter/counterSlice";
-
 const About = () => {
-  const { count } = useSelector((state) => state.counter);
-
-  const dispatch = useDispatch();
-
-  function increaseCountValue() {
-    dispatch(increaseCounter());
-  }
-
-  function decreaseCountValue() {
-    dispatch(decreaseCounter());
-  }
-  function resetCountValue() {
-    dispatch(resetCounter());
-  }
-
   return (
-    <div>
-      <h1 className="text-5xl">About page</h1>
-
-      <h2 className="text-center p-5">{count}</h2>
-
-      <div className="container mx-auto flex justify-center">
-        <button
-          className="bg-blue-500 text-white rounded px-3 py-1 w-max mx-5"
-          onClick={increaseCountValue}
-        >
-          +
-        </button>
-        <button
-          className="bg-blue-500 text-white rounded px-3 py-1 w-max mx-5"
-          onClick={decreaseCountValue}
-        >
-          -
-        </button>
-        <button
-          className="bg-blue-500 text-white rounded px-3 py-1 w-max mx-5"
-          onClick={resetCountValue}
-        >
-          Reset
-        </button>
+    <section className="py-10 px-5">
+      <div className="container mx-auto">
+        <h1 className="text-5xl font-semibold">About Us</h1>
+        <p className="py-8">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure
+          molestiae fuga beatae officiis hic voluptate, maxime sed laborum
+          explicabo dolorem totam consectetur consequatur odio temporibus nulla
+          autem ipsum ut obcaecati velit nobis nemo voluptatibus voluptatem.
+          Modi, eveniet, perferendis sint sed voluptatum delectus, sequi labore
+          iusto dolor placeat neque! Facere laudantium reprehenderit nemo,
+          provident praesentium eos earum minima, harum optio excepturi nam
+          asperiores cumque expedita repudiandae nesciunt! Culpa eum maxime ab
+          architecto, dolorem sed placeat reiciendis ratione qui deleniti sequi
+          laborum odit laudantium perferendis provident exercitationem ad.
+          Recusandae, laboriosam sint voluptate facilis aliquam non beatae odio,
+          maxime nulla, illum minus nostrum?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate
+          aliquid sed et esse cumque dicta blanditiis ipsa vero recusandae ab
+          tempore eum ipsum temporibus veniam provident incidunt aspernatur
+          ullam, sapiente voluptatum numquam facilis necessitatibus iure
+          reiciendis! Doloribus id aperiam enim rem laudantium, quidem similique
+          quo. Ullam commodi sit excepturi doloremque?
+        </p>
       </div>
-    </div>
+    </section>
   );
 };
 
