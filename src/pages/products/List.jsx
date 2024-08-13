@@ -45,9 +45,9 @@ const ProductList = () => {
   }, [error, addSuccess, deleteSuccess]);
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-5">
       <div className="flex justify-between items-center">
-        <h1 className="text-4xl my-5 ml-8 font-semibold">Product list</h1>
+        <h1 className="text-4xl my-5 ml-3 font-semibold">Product list</h1>
         <button
           className="bg-slate-50 h-max py-2 px-8 rounded shadow-md"
           onClick={() => setOpenAddModal(true)}
@@ -56,7 +56,7 @@ const ProductList = () => {
         </button>
       </div>
 
-      <ProductsFilter />
+        <ProductsFilter />
 
       {loading ? (
         <div className="flex items-center justify-center w-100 h-[70vh]">

@@ -6,7 +6,7 @@ import { PRODUCTS_ROUTE } from "../constants/routes";
 
 const Hero = () => {
   return (
-    <section className="py-12 md:py-0">
+    <section className="py-12 md:py-0 px-5">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-around w-full">
           <div className="md:w-1/3">

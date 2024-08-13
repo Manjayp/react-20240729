@@ -18,7 +18,7 @@ const Home = () => {
     <>
       <Hero />
 
-      <section className="py-12 bg-slate-100">
+      <section className="py-12 bg-slate-100 px-5">
         <div className="container mx-auto">
           <h2 className="text-4xl mb-5">Trending Products</h2>
           {loading ? (
