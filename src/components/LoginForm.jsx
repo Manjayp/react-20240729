@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/auth/authActions";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { EMAIL_REGEX } from "../constants/regex";
 import Spinner from "./Spinner";
 
 const LoginForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const { register, handleSubmit, formState } = useForm({ mode: "all" });
 
   const { errors } = formState;
@@ -55,17 +58,25 @@ const LoginForm = () => {
         <label htmlFor="password" className="ml-1 font-semibold text-sm">
           Password
         </label>
-        <input
-          type="password"
-          className="border w-full mt-2 px-3 py-2 rounded"
-          {...register("password", {
-            required: "Password is required.",
-            minLength: {
-              value: 6,
-              message: "Password length must be greater than 6.",
-            },
-          })}
-        />
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            className="border w-full mt-2 px-3 py-2 rounded"
+            {...register("password", {
+              required: "Password is required.",
+              minLength: {
+                value: 6,
+                message: "Password length must be greater than 6.",
+              },
+            })}
+          />
+          <span
+            className="absolute right-3 top-5 cursor-pointer"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <FiEye /> : <FiEyeOff />}
+          </span>
+        </div>
         <p className="text-red-500 text-sm mt-2 ml-1">
           {errors.password?.message}
         </p>
