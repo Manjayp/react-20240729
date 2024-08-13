@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {
   getProductCategories,
   getProductList,
+  getTotalProducts,
 } from "../../redux/product/productActions";
 import { toast, ToastContainer } from "react-toastify";
 import Spinner from "../../components/Spinner";
@@ -28,6 +29,7 @@ const ProductList = () => {
   useEffect(() => {
     dispatch(getProductList(query));
     dispatch(getProductCategories());
+    dispatch(getTotalProducts());
   }, [dispatch, query, addSuccess, deleteSuccess]);
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const ProductList = () => {
         </button>
       </div>
 
-        <ProductsFilter />
+      <ProductsFilter />
 
       {loading ? (
         <div className="flex items-center justify-center w-100 h-[70vh]">

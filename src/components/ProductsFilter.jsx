@@ -1,8 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setFilters, setLimit, setSort } from "../redux/product/productSlice";
+import {
+  setFilters,
+  setLimit,
+  setPage,
+  setSort,
+} from "../redux/product/productSlice";
+import { useEffect, useState } from "react";
 
 const ProductsFilter = () => {
-  const { query, categories } = useSelector((state) => state.product);
+  const [pages, setPages] = useState([]);
+
+  const { query, categories, total } = useSelector((state) => state.product);
 
   const dispatch = useDispatch();
 
@@ -21,6 +29,24 @@ const ProductsFilter = () => {
   function filterProductByCategory(value) {
     dispatch(setFilters(value ? { category: value } : {}));
   }
+
+  function setProductsPage(page) {
+    dispatch(setPage(page));
+  }
+
+  useEffect(() => {
+    const limit = query?.limit ?? 10;
+
+    const totalPages = Math.ceil(total / limit);
+
+    const pages = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+
+    setPages(pages);
+  }, [query, total]);
 
   return (
     <div className="border rounded py-2 px-5 md:flex justify-between">
@@ -82,6 +108,22 @@ const ProductsFilter = () => {
           <option value="20">20</option>
           <option value="50">50</option>
           <option value="100">100</option>
+        </select>
+      </div>
+
+      <div className="py-2">
+        <label htmlFor="page">Page: </label>
+        <select
+          name="page"
+          id="page"
+          className="bg-slate-100 rounded px-2 py-1 mx-3"
+          onChange={(e) => setProductsPage(e.target.value)}
+        >
+          {pages.map((page) => (
+            <option key={page} value={page}>
+              {page}
+            </option>
+          ))}
         </select>
       </div>
     </div>
